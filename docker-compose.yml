@@ -7,7 +7,7 @@ services:
       context: ./php
       dockerfile: Dockerfile
     volumes:
-      - ./src:/var/www/html
+      - .:/var/www/html:delegated
     environment:
       - DB_HOST=postgres
       - DB_PORT=5432
@@ -23,7 +23,7 @@ services:
     ports:
       - "8000:80"
     volumes:
-      - ./src:/var/www/html
+      - .:/var/www/html:delegated
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - app
@@ -45,7 +45,7 @@ services:
     networks:
       - app-network
 
-  # Redis (опционально)
+  # Redis
   redis:
     image: redis:alpine
     networks:
